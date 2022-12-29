@@ -1,0 +1,33 @@
+﻿@model IEnumerable<Library.Models.log>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<h3>Log Listesi</h3>
+<table class="table">
+    <tr>
+        <th>
+            Log Mesajı
+        </th>
+        <th>
+            Log Zamanı
+        </th>
+       
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.log_mesaji)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.log_zamani)
+        </td>
+       
+    </tr>
+}
+
+</table>

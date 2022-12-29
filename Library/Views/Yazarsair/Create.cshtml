@@ -1,0 +1,36 @@
+﻿
+@model Library.ViewModels.YazarsairViewModel
+
+@{
+    ViewBag.Title = "Create";
+}
+<h2>Yeni Yazar veya Sair Ekle</h2>
+
+
+<div class="form-horizontal">
+    <form method="post" action="/Yazarsair/Create">
+        <div class="form-outline mb-8">
+            <label for="yazar_sair_adi">yazar sair adi </label>
+            <input type="text" class="form-control" name="yazar_sair_adi" id="yazar_sair_adi" />
+        </div>
+        <div class="form-outline mb-8">
+            <label for="yazar_sair_soyadi">yazar sair soyadi</label>
+            <input type="text" class="form-control" name="yazar_sair_soyadi" id="yazar_sair_soyadi" />
+        </div>
+        <br />
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-success" />
+            </div>
+        </div>
+    </form>
+</div>
+
+
+
+<br />
+<div>
+    <input type="button" class="btn btn-danger btn-rounded" value="Listeye Geri Dön" onclick="location.href='@Url.Action("Index", "Yazarsair")'" />
+
+</div>
+

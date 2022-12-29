@@ -1,0 +1,74 @@
+﻿
+@model Library.ViewModels.OduncViewModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<br />
+<input type="button" class="btn btn-outline-warning" data-mdb-ripple-color="dark" value="yeni ödünc kitap ver" onclick="location.href='@Url.Action("Create", "Odunc" )'" />
+<br />
+<br />
+<table class="table">
+    <tr class="table-success">
+        <th>
+           Odunc Alma Tarihi
+        </th>
+        <th>
+            Odunc Verme Tarihi
+        </th>
+        <th>
+           Kitap Adı
+        </th>
+        <th>
+           Kullanıcı mail adresi
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.odunclist)
+    {
+        <tr class="table-info">
+            <td>
+                @Html.DisplayFor(modelItem => item.odunc_almatarihi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.odunc_vermetarihi)
+            </td>
+            @foreach (var item2 in Model.kitaplist)
+            {
+                if (item.kitap_id == item2.kitap_id)
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item2.kitap_adi)
+                    </td>
+                }
+
+            }
+
+            @foreach (var item3 in Model.kullanicilist)
+            {
+                if (item.kullanici_id == item3.kullanici_id)
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item3.kullanici_mail)
+                    </td>
+                }
+
+            }
+            <td>
+                <input type="button" class="btn btn-success btn-rounded" value="Duzenle" onclick="location.href='@Url.Action("Edit", "Odunc" , new { id = item.odunc_id })'" />
+                <input type="button" class="btn btn-danger btn-rounded" value="Sil" onclick="location.href='@Url.Action("Delete", "Odunc" , new { id = item.odunc_id })'" />
+            </td>
+        </tr>
+    }
+
+</table>
+
+
+
+
+
+

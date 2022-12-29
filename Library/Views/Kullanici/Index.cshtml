@@ -1,0 +1,65 @@
+﻿@model Library.ViewModels.KullaniciViewModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<input type="button" class="btn btn-outline-warning" data-mdb-ripple-color="dark" value="Kullanıcı Ekle" onclick="location.href='@Url.Action("Create", "Kullanici" )'" />
+<br />
+<br />
+<table class="table">
+    <tr class="table-success">
+        <th>
+          ad
+        </th>
+        <th>
+           soyad
+        </th>
+        <th>
+            mail adresi
+        </th>
+        <th>
+            kullanıcı sifresi
+        </th>
+        <th>
+            Kayitli oldugu kütüphane
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.kullaniciList)
+    {
+        <tr class="table-info">
+            <td>
+                @Html.DisplayFor(modelItem => item.kullanici_adi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.kullanici_soyadi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.kullanici_mail)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.kullanici_sifre)
+            </td>
+            @foreach (var item2 in Model.kutuphanelist)
+            {
+                if (item.kutuphane_id == item2.kutuphane_id)
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item2.kutuphane_adi)
+                    </td>
+                }
+
+            }
+
+            <td>
+                <input type="button" class="btn btn-success btn-rounded" value="Duzenle" onclick="location.href='@Url.Action("Edit", "Kullanici" , new { id = item.kullanici_id })'" />
+                <input type="button" class="btn btn-danger btn-rounded" value="Sil" onclick="location.href='@Url.Action("Delete", "Kullanici" , new { id = item.kullanici_id })'" />
+            </td>
+        </tr>
+    }
+
+</table>

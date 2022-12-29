@@ -1,0 +1,61 @@
+﻿
+
+@model Library.ViewModels.KitapViewModels
+
+@{
+    ViewBag.Title = "Create";
+}
+<br />
+
+<div class="form-horizontal">
+    <form method="post" action="/Kitap/Create">
+        <div class="form-outline mb-8">
+            <label for="kitap_adi">kitap Adı</label>
+            <input type="text" class="form-control" name="kitap_adi" id="kitap_adi" />
+        </div>
+        <div class="form-outline mb-8">
+            <label for="kitap_sayfasayisi">sayfa sayisi</label>
+            <input type="text" class="form-control" name="kitap_sayfasayisi" id="kitap_sayfasayisi" />
+        </div>
+        <div class="form-outline mb-8">
+            <label for="kitap_konusu">Konu</label>
+            <input type="text" class="form-control" name="kitap_konusu" id="kitap_konusu" />
+        </div>
+
+        <div class="form-outline mb-8">
+            <label for="tur_id" class="control-label">kitap türü</label>
+            <select class="form-control" name="tur_id" id="tur_id">
+                @foreach (var item in Model.turlist)
+                {
+                    <option value="@item.tur_id">@item.tur_adi</option>
+                }
+            </select>
+        </div>
+
+        <div class="form-outline mb-8">
+            <label for="yazar_sair_id" class="control-label">Yazar adı</label>
+            <select class="form-control" name="yazar_sair_id" id="yazar_sair_id">
+                @foreach (var item in Model.yazarsairlist)
+                {
+                    <option value="@item.yazar_sair_id">@item.yazar_sair_adi @item.yazar_sair_soyadi</option>
+                }
+            </select>
+        </div>
+        
+        <br />
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-success" />
+            </div>
+        </div>
+    </form>
+
+</div>
+
+<br />
+<div>
+    <input type="button" class="btn btn-danger btn-rounded" value="Listeye Geri Dön" onclick="location.href='@Url.Action("Index", "Kitap")'" />
+
+</div>
+
+

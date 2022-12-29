@@ -1,0 +1,239 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="LibrariyModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="kitap">
+    <Key>
+      <PropertyRef Name="kitap_id" />
+    </Key>
+    <Property Name="kitap_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="kitap_adi" Type="varchar" MaxLength="50" />
+    <Property Name="kitap_konusu" Type="varchar" MaxLength="50" />
+    <Property Name="kitap_sayfasayisi" Type="varchar" MaxLength="50" />
+    <Property Name="tur_id" Type="int" />
+    <Property Name="yazar_sair_id" Type="int" />
+  </EntityType>
+  <EntityType Name="kullanici">
+    <Key>
+      <PropertyRef Name="kullanici_id" />
+    </Key>
+    <Property Name="kullanici_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="kullanici_adi" Type="varchar" MaxLength="50" />
+    <Property Name="kullanici_soyadi" Type="varchar" MaxLength="50" />
+    <Property Name="kullanici_mail" Type="varchar" MaxLength="50" />
+    <Property Name="kullanici_sifre" Type="varchar" MaxLength="50" />
+    <Property Name="kullanici_role" Type="varchar" MaxLength="50" />
+    <Property Name="kutuphane_id" Type="int" />
+  </EntityType>
+  <EntityType Name="kutuphane">
+    <Key>
+      <PropertyRef Name="kutuphane_id" />
+    </Key>
+    <Property Name="kutuphane_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="kutuphane_adi" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="log">
+    <Key>
+      <PropertyRef Name="log_id" />
+    </Key>
+    <Property Name="log_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="log_mesaji" Type="varchar" MaxLength="50" />
+    <Property Name="log_zamani" Type="datetime" />
+  </EntityType>
+  <EntityType Name="odunc">
+    <Key>
+      <PropertyRef Name="odunc_id" />
+    </Key>
+    <Property Name="odunc_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="odunc_almatarihi" Type="datetime" />
+    <Property Name="odunc_vermetarihi" Type="datetime" />
+    <Property Name="kitap_id" Type="int" />
+    <Property Name="kullanici_id" Type="int" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="tur">
+    <Key>
+      <PropertyRef Name="tur_id" />
+    </Key>
+    <Property Name="tur_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="tur_adi" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="yazarvesair">
+    <Key>
+      <PropertyRef Name="yazar_sair_id" />
+    </Key>
+    <Property Name="yazar_sair_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="yazar_sair_adi" Type="varchar" MaxLength="50" />
+    <Property Name="yazar_sair_soyadi" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <Association Name="FK_kitap_tur">
+    <End Role="tur" Type="Self.tur" Multiplicity="0..1" />
+    <End Role="kitap" Type="Self.kitap" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tur">
+        <PropertyRef Name="tur_id" />
+      </Principal>
+      <Dependent Role="kitap">
+        <PropertyRef Name="tur_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_kitap_yazarvesair">
+    <End Role="yazarvesair" Type="Self.yazarvesair" Multiplicity="0..1" />
+    <End Role="kitap" Type="Self.kitap" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="yazarvesair">
+        <PropertyRef Name="yazar_sair_id" />
+      </Principal>
+      <Dependent Role="kitap">
+        <PropertyRef Name="yazar_sair_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_kullanici_kutuphane">
+    <End Role="kutuphane" Type="Self.kutuphane" Multiplicity="0..1" />
+    <End Role="kullanici" Type="Self.kullanici" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="kutuphane">
+        <PropertyRef Name="kutuphane_id" />
+      </Principal>
+      <Dependent Role="kullanici">
+        <PropertyRef Name="kutuphane_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_odunc_kitap">
+    <End Role="kitap" Type="Self.kitap" Multiplicity="0..1" />
+    <End Role="odunc" Type="Self.odunc" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="kitap">
+        <PropertyRef Name="kitap_id" />
+      </Principal>
+      <Dependent Role="odunc">
+        <PropertyRef Name="kitap_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_odunc_kullanici">
+    <End Role="kullanici" Type="Self.kullanici" Multiplicity="0..1" />
+    <End Role="odunc" Type="Self.odunc" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="kullanici">
+        <PropertyRef Name="kullanici_id" />
+      </Principal>
+      <Dependent Role="odunc">
+        <PropertyRef Name="kullanici_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+  <Function Name="kitapprocedure" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="kitapid" Type="int" Mode="In" />
+    <Parameter Name="kitapadi" Type="varchar" Mode="In" />
+    <Parameter Name="sayfasayisi" Type="varchar" Mode="In" />
+    <Parameter Name="konusu" Type="varchar" Mode="In" />
+    <Parameter Name="turid" Type="int" Mode="In" />
+    <Parameter Name="yazarsairid" Type="int" Mode="In" />
+    <Parameter Name="Type" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="kullaniciprocedure" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="kullaniciid" Type="int" Mode="In" />
+    <Parameter Name="kullaniciadi" Type="varchar" Mode="In" />
+    <Parameter Name="kullanicisoyadi" Type="varchar" Mode="In" />
+    <Parameter Name="kullanicimail" Type="varchar" Mode="In" />
+    <Parameter Name="kullanicisifre" Type="varchar" Mode="In" />
+    <Parameter Name="kutuphaneid" Type="int" Mode="In" />
+    <Parameter Name="Type" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="kutuphaneprocedure" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="kutuphaneid" Type="int" Mode="In" />
+    <Parameter Name="kutuphaneadi" Type="varchar" Mode="In" />
+    <Parameter Name="Type" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="oduncprocedure" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="oduncid" Type="int" Mode="In" />
+    <Parameter Name="oduncalma" Type="datetime" Mode="In" />
+    <Parameter Name="oduncverme" Type="datetime" Mode="In" />
+    <Parameter Name="kullaniciid" Type="int" Mode="In" />
+    <Parameter Name="kitapid" Type="int" Mode="In" />
+    <Parameter Name="Type" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="turprocedure" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="turid" Type="int" Mode="In" />
+    <Parameter Name="turadi" Type="varchar" Mode="In" />
+    <Parameter Name="Type" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="yazarvesairprocedure" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="yazarsairid" Type="int" Mode="In" />
+    <Parameter Name="yazarsairadi" Type="varchar" Mode="In" />
+    <Parameter Name="yazarsairsoyadi" Type="varchar" Mode="In" />
+    <Parameter Name="Type" Type="varchar" Mode="In" />
+  </Function>
+  <EntityContainer Name="LibrariyModelStoreContainer">
+    <EntitySet Name="kitap" EntityType="Self.kitap" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="kullanici" EntityType="Self.kullanici" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="kutuphane" EntityType="Self.kutuphane" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="log" EntityType="Self.log" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="odunc" EntityType="Self.odunc" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tur" EntityType="Self.tur" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="yazarvesair" EntityType="Self.yazarvesair" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_kitap_tur" Association="Self.FK_kitap_tur">
+      <End Role="tur" EntitySet="tur" />
+      <End Role="kitap" EntitySet="kitap" />
+    </AssociationSet>
+    <AssociationSet Name="FK_kitap_yazarvesair" Association="Self.FK_kitap_yazarvesair">
+      <End Role="yazarvesair" EntitySet="yazarvesair" />
+      <End Role="kitap" EntitySet="kitap" />
+    </AssociationSet>
+    <AssociationSet Name="FK_kullanici_kutuphane" Association="Self.FK_kullanici_kutuphane">
+      <End Role="kutuphane" EntitySet="kutuphane" />
+      <End Role="kullanici" EntitySet="kullanici" />
+    </AssociationSet>
+    <AssociationSet Name="FK_odunc_kitap" Association="Self.FK_odunc_kitap">
+      <End Role="kitap" EntitySet="kitap" />
+      <End Role="odunc" EntitySet="odunc" />
+    </AssociationSet>
+    <AssociationSet Name="FK_odunc_kullanici" Association="Self.FK_odunc_kullanici">
+      <End Role="kullanici" EntitySet="kullanici" />
+      <End Role="odunc" EntitySet="odunc" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

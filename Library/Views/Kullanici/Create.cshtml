@@ -1,0 +1,52 @@
+﻿@model Library.ViewModels.KullaniciViewModel
+
+@{
+    ViewBag.Title = "Create";
+}
+<h2>Yeni kullanıcı Ekle</h2>
+
+
+<div class="form-horizontal">
+    <form method="post" action="/Kullanici/Create">
+        <div class="form-outline mb-8">
+            <label for="kullanici_adi">kullanıcı Adı</label>
+            <input type="text" class="form-control" name="kullanici_adi" id="kullanici_adi" />
+        </div>
+        <div class="form-outline mb-8">
+            <label for="kullanici_soyadi">kullanici soyadi</label>
+            <input type="text" class="form-control" name="kullanici_soyadi" id="kullanici_soyadi" />
+        </div>
+        <div class="form-outline mb-8">
+            <label for="kullanici_mail">kullanici mail</label>
+            <input type="text" class="form-control" name="kullanici_mail" id="kullanici_mail" />
+        </div>
+        <div class="form-outline mb-8">
+            <label for="kullanici_sifre">kullanici sifre</label>
+            <input type="text" class="form-control" name="kullanici_sifre" id="kullanici_sifre" />
+        </div>
+
+        <div class="form-outline mb-8">
+            <label for="kutuphane_id" class="control-label">kutuphane adı</label>
+            <select class="form-control" name="kutuphane_id" id="kutuphane_id">
+                @foreach (var item in Model.kutuphanelist)
+                {
+                    <option value="@item.kutuphane_id">@item.kutuphane_adi</option>
+                }
+            </select>
+        </div>
+        <br />
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-success" />
+            </div>
+        </div>
+    </form>
+</div>
+
+
+
+<br />
+<div>
+    <input type="button" class="btn btn-danger btn-rounded" value="Listeye Geri Dön" onclick="location.href='@Url.Action("Index", "Kullanici")'" />
+
+</div>

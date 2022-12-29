@@ -1,0 +1,296 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="LibrariyModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="kitap">
+    <Key>
+      <PropertyRef Name="kitap_id" />
+    </Key>
+    <Property Name="kitap_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="kitap_adi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="kitap_konusu" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="kitap_sayfasayisi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="tur_id" Type="Int32" />
+    <Property Name="yazar_sair_id" Type="Int32" />
+    <NavigationProperty Name="tur" Relationship="Self.FK_kitap_tur" FromRole="kitap" ToRole="tur" />
+    <NavigationProperty Name="yazarvesair" Relationship="Self.FK_kitap_yazarvesair" FromRole="kitap" ToRole="yazarvesair" />
+    <NavigationProperty Name="odunc" Relationship="Self.FK_odunc_kitap" FromRole="kitap" ToRole="odunc" />
+  </EntityType>
+  <EntityType Name="kullanici">
+    <Key>
+      <PropertyRef Name="kullanici_id" />
+    </Key>
+    <Property Name="kullanici_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="kullanici_adi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="kullanici_soyadi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="kullanici_mail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="kullanici_sifre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="kullanici_role" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="kutuphane_id" Type="Int32" />
+    <NavigationProperty Name="kutuphane" Relationship="Self.FK_kullanici_kutuphane" FromRole="kullanici" ToRole="kutuphane" />
+    <NavigationProperty Name="odunc" Relationship="Self.FK_odunc_kullanici" FromRole="kullanici" ToRole="odunc" />
+  </EntityType>
+  <EntityType Name="kutuphane">
+    <Key>
+      <PropertyRef Name="kutuphane_id" />
+    </Key>
+    <Property Name="kutuphane_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="kutuphane_adi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="kullanici" Relationship="Self.FK_kullanici_kutuphane" FromRole="kutuphane" ToRole="kullanici" />
+  </EntityType>
+  <EntityType Name="log">
+    <Key>
+      <PropertyRef Name="log_id" />
+    </Key>
+    <Property Name="log_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="log_mesaji" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="log_zamani" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="odunc">
+    <Key>
+      <PropertyRef Name="odunc_id" />
+    </Key>
+    <Property Name="odunc_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="odunc_almatarihi" Type="DateTime" Precision="3" />
+    <Property Name="odunc_vermetarihi" Type="DateTime" Precision="3" />
+    <Property Name="kitap_id" Type="Int32" />
+    <Property Name="kullanici_id" Type="Int32" />
+    <NavigationProperty Name="kitap" Relationship="Self.FK_odunc_kitap" FromRole="odunc" ToRole="kitap" />
+    <NavigationProperty Name="kullanici" Relationship="Self.FK_odunc_kullanici" FromRole="odunc" ToRole="kullanici" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="tur">
+    <Key>
+      <PropertyRef Name="tur_id" />
+    </Key>
+    <Property Name="tur_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="tur_adi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="kitap" Relationship="Self.FK_kitap_tur" FromRole="tur" ToRole="kitap" />
+  </EntityType>
+  <EntityType Name="yazarvesair">
+    <Key>
+      <PropertyRef Name="yazar_sair_id" />
+    </Key>
+    <Property Name="yazar_sair_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="yazar_sair_adi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="yazar_sair_soyadi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="kitap" Relationship="Self.FK_kitap_yazarvesair" FromRole="yazarvesair" ToRole="kitap" />
+  </EntityType>
+  <Association Name="FK_kitap_tur">
+    <End Role="tur" Type="Self.tur" Multiplicity="0..1" />
+    <End Role="kitap" Type="Self.kitap" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tur">
+        <PropertyRef Name="tur_id" />
+      </Principal>
+      <Dependent Role="kitap">
+        <PropertyRef Name="tur_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_kitap_yazarvesair">
+    <End Role="yazarvesair" Type="Self.yazarvesair" Multiplicity="0..1" />
+    <End Role="kitap" Type="Self.kitap" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="yazarvesair">
+        <PropertyRef Name="yazar_sair_id" />
+      </Principal>
+      <Dependent Role="kitap">
+        <PropertyRef Name="yazar_sair_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_odunc_kitap">
+    <End Role="kitap" Type="Self.kitap" Multiplicity="0..1" />
+    <End Role="odunc" Type="Self.odunc" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="kitap">
+        <PropertyRef Name="kitap_id" />
+      </Principal>
+      <Dependent Role="odunc">
+        <PropertyRef Name="kitap_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_kullanici_kutuphane">
+    <End Role="kutuphane" Type="Self.kutuphane" Multiplicity="0..1" />
+    <End Role="kullanici" Type="Self.kullanici" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="kutuphane">
+        <PropertyRef Name="kutuphane_id" />
+      </Principal>
+      <Dependent Role="kullanici">
+        <PropertyRef Name="kutuphane_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_odunc_kullanici">
+    <End Role="kullanici" Type="Self.kullanici" Multiplicity="0..1" />
+    <End Role="odunc" Type="Self.odunc" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="kullanici">
+        <PropertyRef Name="kullanici_id" />
+      </Principal>
+      <Dependent Role="odunc">
+        <PropertyRef Name="kullanici_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="LibrariyEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="kitap" EntityType="Self.kitap" />
+    <EntitySet Name="kullanici" EntityType="Self.kullanici" />
+    <EntitySet Name="kutuphane" EntityType="Self.kutuphane" />
+    <EntitySet Name="log" EntityType="Self.log" />
+    <EntitySet Name="odunc" EntityType="Self.odunc" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="tur" EntityType="Self.tur" />
+    <EntitySet Name="yazarvesair" EntityType="Self.yazarvesair" />
+    <AssociationSet Name="FK_kitap_tur" Association="Self.FK_kitap_tur">
+      <End Role="tur" EntitySet="tur" />
+      <End Role="kitap" EntitySet="kitap" />
+    </AssociationSet>
+    <AssociationSet Name="FK_kitap_yazarvesair" Association="Self.FK_kitap_yazarvesair">
+      <End Role="yazarvesair" EntitySet="yazarvesair" />
+      <End Role="kitap" EntitySet="kitap" />
+    </AssociationSet>
+    <AssociationSet Name="FK_odunc_kitap" Association="Self.FK_odunc_kitap">
+      <End Role="kitap" EntitySet="kitap" />
+      <End Role="odunc" EntitySet="odunc" />
+    </AssociationSet>
+    <AssociationSet Name="FK_kullanici_kutuphane" Association="Self.FK_kullanici_kutuphane">
+      <End Role="kutuphane" EntitySet="kutuphane" />
+      <End Role="kullanici" EntitySet="kullanici" />
+    </AssociationSet>
+    <AssociationSet Name="FK_odunc_kullanici" Association="Self.FK_odunc_kullanici">
+      <End Role="kullanici" EntitySet="kullanici" />
+      <End Role="odunc" EntitySet="odunc" />
+    </AssociationSet>
+    <FunctionImport Name="kitapprocedure" ReturnType="Collection(LibrariyModel.kitapprocedure_Result)">
+      <Parameter Name="kitapid" Mode="In" Type="Int32" />
+      <Parameter Name="kitapadi" Mode="In" Type="String" />
+      <Parameter Name="sayfasayisi" Mode="In" Type="String" />
+      <Parameter Name="konusu" Mode="In" Type="String" />
+      <Parameter Name="turid" Mode="In" Type="Int32" />
+      <Parameter Name="yazarsairid" Mode="In" Type="Int32" />
+      <Parameter Name="Type" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="kullaniciprocedure" ReturnType="Collection(LibrariyModel.kullaniciprocedure_Result)">
+      <Parameter Name="kullaniciid" Mode="In" Type="Int32" />
+      <Parameter Name="kullaniciadi" Mode="In" Type="String" />
+      <Parameter Name="kullanicisoyadi" Mode="In" Type="String" />
+      <Parameter Name="kullanicimail" Mode="In" Type="String" />
+      <Parameter Name="kullanicisifre" Mode="In" Type="String" />
+      <Parameter Name="kutuphaneid" Mode="In" Type="Int32" />
+      <Parameter Name="Type" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="kutuphaneprocedure" ReturnType="Collection(LibrariyModel.kutuphaneprocedure_Result)">
+      <Parameter Name="kutuphaneid" Mode="In" Type="Int32" />
+      <Parameter Name="kutuphaneadi" Mode="In" Type="String" />
+      <Parameter Name="Type" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="oduncprocedure" ReturnType="Collection(LibrariyModel.oduncprocedure_Result)">
+      <Parameter Name="oduncid" Mode="In" Type="Int32" />
+      <Parameter Name="oduncalma" Mode="In" Type="DateTime" />
+      <Parameter Name="oduncverme" Mode="In" Type="DateTime" />
+      <Parameter Name="kullaniciid" Mode="In" Type="Int32" />
+      <Parameter Name="kitapid" Mode="In" Type="Int32" />
+      <Parameter Name="Type" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_creatediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(LibrariyModel.sp_helpdiagramdefinition_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(LibrariyModel.sp_helpdiagrams_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
+    <FunctionImport Name="turprocedure" ReturnType="Collection(LibrariyModel.turprocedure_Result)">
+      <Parameter Name="turid" Mode="In" Type="Int32" />
+      <Parameter Name="turadi" Mode="In" Type="String" />
+      <Parameter Name="Type" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="yazarvesairprocedure" ReturnType="Collection(LibrariyModel.yazarvesairprocedure_Result)">
+      <Parameter Name="yazarsairid" Mode="In" Type="Int32" />
+      <Parameter Name="yazarsairadi" Mode="In" Type="String" />
+      <Parameter Name="yazarsairsoyadi" Mode="In" Type="String" />
+      <Parameter Name="Type" Mode="In" Type="String" />
+    </FunctionImport>
+  </EntityContainer>
+  <ComplexType Name="kitapprocedure_Result">
+    <Property Type="Int32" Name="kitap_id" Nullable="false" />
+    <Property Type="String" Name="kitap_adi" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="kitap_konusu" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="kitap_sayfasayisi" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="tur_id" Nullable="true" />
+    <Property Type="Int32" Name="yazar_sair_id" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="kullaniciprocedure_Result">
+    <Property Type="Int32" Name="kullanici_id" Nullable="false" />
+    <Property Type="String" Name="kullanici_adi" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="kullanici_soyadi" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="kullanici_mail" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="kullanici_sifre" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="kullanici_role" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="kutuphane_id" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="kutuphaneprocedure_Result">
+    <Property Type="Int32" Name="kutuphane_id" Nullable="false" />
+    <Property Type="String" Name="kutuphane_adi" Nullable="true" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="oduncprocedure_Result">
+    <Property Type="Int32" Name="odunc_id" Nullable="false" />
+    <Property Type="DateTime" Name="odunc_almatarihi" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="odunc_vermetarihi" Nullable="true" Precision="23" />
+    <Property Type="Int32" Name="kitap_id" Nullable="true" />
+    <Property Type="Int32" Name="kullanici_id" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagramdefinition_Result">
+    <Property Type="Int32" Name="version" Nullable="true" />
+    <Property Type="Binary" Name="definition" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagrams_Result">
+    <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+    <Property Type="Int32" Name="OwnerID" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="turprocedure_Result">
+    <Property Type="Int32" Name="tur_id" Nullable="false" />
+    <Property Type="String" Name="tur_adi" Nullable="true" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="yazarvesairprocedure_Result">
+    <Property Type="Int32" Name="yazar_sair_id" Nullable="false" />
+    <Property Type="String" Name="yazar_sair_adi" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="yazar_sair_soyadi" Nullable="true" MaxLength="50" />
+  </ComplexType>
+</Schema>

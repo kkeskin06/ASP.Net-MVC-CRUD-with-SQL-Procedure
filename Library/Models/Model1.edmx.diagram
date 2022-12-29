@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="fb4246e3c43548f3b5c7fbd696d6c7f8" Name="Diagram1">
+        <EntityTypeShape EntityType="LibrariyModel.kitap" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="LibrariyModel.kullanici" Width="1.5" PointX="3" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="LibrariyModel.kutuphane" Width="1.5" PointX="0.75" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LibrariyModel.log" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LibrariyModel.odunc" Width="1.5" PointX="5.25" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="LibrariyModel.sysdiagrams" Width="1.5" PointX="4.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LibrariyModel.tur" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LibrariyModel.yazarvesair" Width="1.5" PointX="0.75" PointY="5.5" IsExpanded="true" />
+        <AssociationConnector Association="LibrariyModel.FK_kitap_tur" ManuallyRouted="false" />
+        <AssociationConnector Association="LibrariyModel.FK_kitap_yazarvesair" ManuallyRouted="false" />
+        <AssociationConnector Association="LibrariyModel.FK_odunc_kitap" ManuallyRouted="false" />
+        <AssociationConnector Association="LibrariyModel.FK_kullanici_kutuphane" ManuallyRouted="false" />
+        <AssociationConnector Association="LibrariyModel.FK_odunc_kullanici" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

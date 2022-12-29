@@ -1,0 +1,43 @@
+﻿
+@model IEnumerable<Library.Models.yazarvesair>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<br />
+<input type="button" class="btn btn-outline-warning" data-mdb-ripple-color="dark" value="yazar veya sair Ekle" onclick="location.href='@Url.Action("Create", "Yazarsair" )'" />
+<br />
+<br />
+<table class="table">
+    <tr class="table-success">
+        <th>
+            yazar ve sair adı
+        </th>
+        <th>
+            yazar ve sair soyadı
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr class="table-info">
+            <td>
+                @Html.DisplayFor(modelItem => item.yazar_sair_adi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.yazar_sair_soyadi)
+            </td>
+            <td>
+                <input type="button" class="btn btn-success btn-rounded" value="Duzenle" onclick="location.href='@Url.Action("Edit", "Yazarsair" , new { id = item.yazar_sair_id })'" />
+                <input type="button" class="btn btn-danger btn-rounded" value="Sil" onclick="location.href='@Url.Action("Delete", "Yazarsair" , new { id = item.yazar_sair_id })'" />
+            </td>
+        </tr>
+    }
+
+</table>
+
+

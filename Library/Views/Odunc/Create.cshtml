@@ -1,0 +1,53 @@
+﻿
+
+@model Library.ViewModels.OduncViewModel
+
+@{
+    ViewBag.Title = "Create";
+}
+<br />
+
+<div class="form-horizontal">
+    <form method="post" action="/Odunc/Create">
+        <div class="form-outline mb-8">
+            <label for="odunc_almatarihi">odunc alma tarihi</label>
+            <input type="date" class="form-control" name="odunc_almatarihi" id="odunc_almatarihi" />
+        </div>
+        <div class="form-outline mb-8">
+            <label for="odunc_vermetarihi">odunc verme tarihi</label>
+            <input type="date" class="form-control" name="odunc_vermetarihi" id="odunc_vermetarihi"  />
+        </div>
+        <div class="form-outline mb-8">
+            <label for="kitap_id" class="control-label">kitap adı</label>
+            <select class="form-control" name="kitap_id" id="kitap_id">
+                @foreach (var item in Model.kitaplist)
+                {
+                    <option value="@item.kitap_id">@item.kitap_adi</option>
+                }
+            </select>
+        </div>
+
+        <div class="form-outline mb-8">
+            <label for="kullanici_id" class="control-label">kullanici adı</label>
+            <select class="form-control" name="kullanici_id" id="kullanici_id">
+                @foreach (var item in Model.kullanicilist)
+                {
+                    <option value="@item.kullanici_id">@item.kullanici_mail</option>
+                }
+            </select>
+        </div>
+        <br />
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-success" />
+            </div>
+        </div>
+    </form>
+    
+</div>
+
+<br />
+<div>
+    <input type="button" class="btn btn-danger btn-rounded" value="Listeye Geri Dön" onclick="location.href='@Url.Action("Index", "Odunc")'" />
+
+</div>

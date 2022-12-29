@@ -1,0 +1,87 @@
+﻿
+@model Library.ViewModels.KitapViewModels
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<br />
+<input type="button" class="btn btn-outline-warning" data-mdb-ripple-color="dark" value="yeni Kitap Ekle" onclick="location.href='@Url.Action("Create", "Kitap" )'" />
+<br />
+<br />
+<table class="table">
+    <tr class="table-success">
+        <th>
+            Kitap Adı
+        </th>
+        <th>
+            Sayfa Sayısı
+        </th>
+        <th>
+            Konu
+        </th>
+        <th>
+            Kitap Türü
+        </th>
+        <th>
+            Yazar Adı
+        </th>
+        <th>
+            Yazar Soyadı
+        </th>
+      
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.kitaplist)
+    {
+        <tr class="table-info">
+            <td>
+                @Html.DisplayFor(modelItem => item.kitap_adi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.kitap_sayfasayisi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.kitap_konusu)
+            </td>
+            @foreach (var item2 in Model.turlist)
+            {
+                if (item.tur_id == item2.tur_id)
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item2.tur_adi)
+                    </td>
+                }
+
+            }
+            @foreach (var item3 in Model.yazarsairlist)
+            {
+                if (item.yazar_sair_id == item3.yazar_sair_id)
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item3.yazar_sair_adi)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item3.yazar_sair_soyadi)
+                    </td>
+                }
+
+            }
+        
+            <td>
+                <input type="button" class="btn btn-success btn-rounded" value="Duzenle" onclick="location.href='@Url.Action("Edit", "Kitap" , new { id = item.kitap_id })'" />
+                <input type="button" class="btn btn-danger btn-rounded" value="Sil" onclick="location.href='@Url.Action("Delete", "Kitap" , new { id = item.kitap_id })'" />
+            </td>
+        </tr>
+    }
+
+</table>
+
+
+
+
+
+
+

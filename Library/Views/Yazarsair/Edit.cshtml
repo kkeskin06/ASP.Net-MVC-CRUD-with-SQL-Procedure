@@ -1,0 +1,36 @@
+﻿@model Library.ViewModels.YazarsairViewModel
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<br />
+<div class="form-horizontal">
+    <h4>@ViewBag.yazar_sair_id id'li yazar Güncelleniyor</h4>
+    <form method="post" action="/Yazarsair/Edit">
+
+        <div class="form-outline mb-8">
+            <input type="hidden" class="form-control" name="yazar_sair_id" id="yazar_sair_id" value="@ViewBag.yazar_sair_id" />
+        </div>
+
+        <div class="form-outline mb-8">
+            <label for="yazar_sair_adi">yazar sair adi</label>
+            <input type="text" class="form-control" name="yazar_sair_adi" id="yazar_sair_adi" value="@Model.yazarsairlist.FirstOrDefault().yazar_sair_adi" />
+        </div>
+
+        <div class="form-outline mb-8">
+            <label for="yazar_sair_soyadi">yazar sair soyadi</label>
+            <input type="text" class="form-control" name="yazar_sair_soyadi" id="yazar_sair_soyadi" value="@Model.yazarsairlist.FirstOrDefault().yazar_sair_soyadi" />
+        </div>
+        <br />
+        <div class="form-outline mb-8">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Edit" class="btn btn-success" />
+            </div>
+        </div>
+    </form>
+</div>
+<br />
+<div>
+    <input type="button" class="btn btn-danger btn-rounded" value="Listeye Geri Dön" onclick="location.href='@Url.Action("Index", "Yazarsair")'" />
+</div>

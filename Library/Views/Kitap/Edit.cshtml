@@ -1,0 +1,79 @@
+﻿@model Library.ViewModels.KitapViewModels
+@{
+    ViewBag.Title = "Edit";
+}
+
+<br />
+
+
+<div class="form-horizontal">
+    <h4>@ViewBag.kitap_id id'li Kitap Güncelleniyor</h4>
+    <br />
+    <form method="post" action="/Kitap/Edit">
+
+        <div class="form-group">
+
+            <input type="hidden" class="form-control" name="kitap_id" id="kitap_id" value="@ViewBag.kitap_id" />
+        </div>
+
+        <div class="form-group">
+            <label for="kitap_adi">Kitap Adı</label>
+            <input type="text" class="form-control" name="kitap_adi" id="kitap_adi" value="@Model.kitaplist.FirstOrDefault().kitap_adi" />
+        </div>
+        <div class="form-group">
+            <label for="kitap_sayfasayisi">Sayfa Sayisi</label>
+            <input type="text" class="form-control" name="kitap_sayfasayisi" id="kitap_sayfasayisi" value="@Model.kitaplist.FirstOrDefault().kitap_sayfasayisi" />
+        </div>
+        <div class="form-group">
+            <label for="kitap_konusu">Konu</label>
+            <input type="text" class="form-control" name="kitap_konusu" id="kitap_konusu" value="@Model.kitaplist.FirstOrDefault().kitap_konusu" />
+        </div>
+        <div class="form-group">
+            <label for="tur_id" class="control-label">Tür</label>
+            <select class="form-control" name="tur_id" id="tur_id">
+                @foreach (var item in Model.turlist)
+                {
+                    if (item.tur_id == Model.turlist.FirstOrDefault().tur_id)
+                    {
+                        <option value="@item.tur_id" selected>@item.tur_adi</option>
+                    }
+                    else
+                    {
+                        <option value="@item.tur_id">@item.tur_adi</option>
+                    }
+
+                }
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="yazar_sair_id" class="control-label">yazar adı</label>
+            <select class="form-control" name="yazar_sair_id" id="yazar_sair_id">
+                @foreach (var item in Model.yazarsairlist)
+                {
+                    if (item.yazar_sair_id == Model.yazarsairlist.FirstOrDefault().yazar_sair_id)
+                    {
+                        <option value="@item.yazar_sair_id" selected>@item.yazar_sair_adi</option>
+                    }
+                    else
+                    {
+                        <option value="@item.yazar_sair_id">@item.yazar_sair_adi</option>
+                    }
+
+                }
+            </select>
+        </div>
+        <br />
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Edit" class="btn btn-success" />
+            </div>
+        </div>
+    </form>
+</div>
+
+<br />
+<div>
+    <input type="button" class="btn btn-danger btn-rounded" value="Listeye Geri Dön" onclick="location.href='@Url.Action("Index", "Kitap")'" />
+</div>
+

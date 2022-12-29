@@ -1,0 +1,27 @@
+﻿@model Library.ViewModels.KutuphaneViewModel
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<br />
+<div class="form-horizontal">
+    <form method="post" action="/Kutuphane/Create">
+        <div class="form-outline mb-8">
+            <label for="kutuphane_adi">Kutuphane Adı</label>
+            <input type="text" class="form-control" name="kutuphane_adi" id="kutuphane_adi" />
+        </div>
+        <br />
+        <div class="form-outline mb-8">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-success" />
+            </div>
+        </div>
+    </form>
+</div>
+
+<br />
+
+<div>
+    <input type="button" class="btn btn-danger btn-rounded" value="Listeye Geri Dön" onclick="location.href='@Url.Action("Index", "Kutuphane")'" />
+</div>

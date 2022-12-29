@@ -1,0 +1,31 @@
+﻿@model Library.ViewModels.KutuphaneViewModel
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<br />
+<div class="form-horizontal">
+    <h4>@ViewBag.kutuphane_id id'li Kutuphane Güncelleniyor</h4>
+    <form method="post" action="/Kutuphane/Edit">
+
+        <div class="form-outline mb-8">
+            <input type="hidden" class="form-control" name="kutuphane_id" id="kutuphane_id" value="@ViewBag.kutuphane_id" />
+        </div>
+
+        <div class="form-outline mb-8">
+            <label for="kutuphane_adi">kutuphane adi</label>
+            <input type="text" class="form-control" name="kutuphane_adi" id="kutuphane_adi" value="@Model.kutuphanelist.FirstOrDefault().kutuphane_adi" />
+        </div>
+        <br />
+        <div class="form-outline mb-8">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Edit" class="btn btn-success" />
+            </div>
+        </div>
+    </form>
+</div>
+<br />
+<div>
+    <input type="button" class="btn btn-danger btn-rounded" value="Listeye Geri Dön" onclick="location.href='@Url.Action("Index", "Kutuphane")'" />
+</div>
